@@ -10,7 +10,7 @@ class User < ApplicationRecord
     user = User.where(email: auth.info.email).first
 
     if user
-      returt user
+      return user
     else
       where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
         user.email = auth.info.email
