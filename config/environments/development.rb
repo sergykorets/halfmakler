@@ -73,4 +73,16 @@ Rails.application.configure do
   #   user_name: 'aliceklg@gmail.com',
   #   password: 'Aa3439250289'
   # }
+
+  config.paperclip_defaults = {
+    storage: :s3,
+    path: ':class/:attachment/:id/:style/:filename',
+    s3_host_name: 's3-eu-central-1.amazonaws.com',
+    s3_credentials: {
+      bucket: 'airpikachu89',
+      access_key_id: 'AKIAJQHWMH7NULS2JFLQ',
+      secret_access_key: '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',
+      s3_region: 'eu-central-1'
+    }
+  }
 end
