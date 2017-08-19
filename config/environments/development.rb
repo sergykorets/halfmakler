@@ -79,9 +79,9 @@ Rails.application.configure do
     path: ':class/:attachment/:id/:style/:filename',
     s3_host_name: 's3-eu-central-1.amazonaws.com',
     s3_credentials: {
-      bucket: 'airpikachu89',
-      access_key_id: 'AKIAJQHWMH7NULS2JFLQ',
-      secret_access_key: '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',
+      bucket: Rails.application.secrets.bucket,
+      access_key_id: Rails.application.secrets.access_key_id,
+      secret_access_key: Rails.application.secrets.secret_access_key,
       s3_region: 'eu-central-1'
     }
   }
