@@ -12,8 +12,11 @@
 
 ActiveRecord::Schema.define(version: 20170830145531) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "photos", force: :cascade do |t|
-    t.integer "room_id"
+    t.bigint "room_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "image_file_name"
@@ -24,8 +27,8 @@ ActiveRecord::Schema.define(version: 20170830145531) do
   end
 
   create_table "reservations", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "room_id"
+    t.bigint "user_id"
+    t.bigint "room_id"
     t.datetime "start_date"
     t.datetime "end_date"
     t.integer "price"
@@ -39,10 +42,10 @@ ActiveRecord::Schema.define(version: 20170830145531) do
   create_table "reviews", force: :cascade do |t|
     t.text "comment"
     t.integer "star", default: 1
-    t.integer "room_id"
-    t.integer "reservation_id"
-    t.integer "guest_id"
-    t.integer "host_id"
+    t.bigint "room_id"
+    t.bigint "reservation_id"
+    t.bigint "guest_id"
+    t.bigint "host_id"
     t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -68,7 +71,7 @@ ActiveRecord::Schema.define(version: 20170830145531) do
     t.boolean "is_internet"
     t.integer "price"
     t.boolean "active"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "latitude"
@@ -103,4 +106,12 @@ ActiveRecord::Schema.define(version: 20170830145531) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "photos", "rooms"
+  add_foreign_key "reservations", "rooms"
+  add_foreign_key "reservations", "users"
+  add_foreign_key "reviews", "reservations"
+  add_foreign_key "reviews", "rooms"
+  add_foreign_key "reviews", "users", column: "guest_id"
+  add_foreign_key "reviews", "users", column: "host_id"
+  add_foreign_key "rooms", "users"
 end
