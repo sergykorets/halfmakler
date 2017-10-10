@@ -6,7 +6,7 @@
     <div class="panel panel-default">
 
       <div class="panel-heading">
-        Amenities
+        Зручності
       </div>
 
       <div class="panel-body">
@@ -14,30 +14,29 @@
           <%= form_for @room do |f| %>
             <div class="row form-group">
               <div class="col-md-4">
-                <%= f.check_box :is_tv %> TV
+                <%= f.check_box :is_tv %> ТБ
               </div>
               <div class="col-md-4">
-                <%= f.check_box :is_kitchen %> Kitchen
+                <%= f.check_box :is_kitchen %> Кухня
               </div>
               <div class="col-md-4">
-                <%= f.check_box :is_internet %> Internet
+                <%= f.check_box :is_internet %> Інтернет
               </div>
             </div>
 
             <div class="row form-group">
               <div class="col-md-4">
-                <%= f.check_box :is_heating %> Heating
+                <%= f.check_box :is_heating %> Пральна машина
               </div>
               <div class="col-md-4">
-                <%= f.check_box :is_air %> Air Conditioning
+                <%= f.check_box :is_air %> Кондиціонер
               </div>
             </div>
             <br/><br/>
 
             <div class="text-center">
-              <%= f.submit "Save", class: "btn btn-form" %>
+              <%= f.submit "Зберегти", class: "btn btn-form" %>
             </div>
-
           <% end %>
         </div>
       </div>

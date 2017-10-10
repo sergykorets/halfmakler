@@ -25,6 +25,8 @@ class RoomsController < ApplicationController
   def show
     @photos = @room.photos
     @guest_reviews = @room.guest_reviews
+    @booked = Reservation.where("room_id = ? AND user_id = ?", @room.id, current_user.id).present? if current_user
+    @hasReview = @guest_reviews.find_by(guest_id: current_user.id) if current_user
   end
 
   def listing
