@@ -1,3 +1,134 @@
 <div class="row">
-  <%= render partial: "rooms/rooms_list", locals: {rooms: @rooms} %>
+
+
+	  <div class="row">
+      <div class="col-md-offset-4 col-md-4">
+        <button id="filter" class="btn btn-default" data-toggle="collapse" data-target="#collapsePanel">
+          Більше фільтрів <i class="fa fa-chevron-down"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="row">
+      <br/>
+      
+
+        <%= search_form_for @search, url: home_path, remote: true do |f| %>
+
+          <div class="row">
+            <div class="col-md-8">
+              <label>Діапазон ціни:</label>
+              <div id="slider-range"></div>
+            </div>
+            <div class="col-md-2">
+              <label>Мінімальна:</label>
+              <%= f.text_field :price_gteq, class: "form-control" %>
+            </div>
+            <div class="col-md-2">
+              <label>Максимальна:</label>
+              <%= f.text_field :price_lteq, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="row text-center">
+            <%= f.submit "Пошук", class: "btn btn-form" %>
+          </div>
+
+          <hr/>
+
+        <div class="collapse" id="collapsePanel">
+          <div class="row">
+            <div class="col-md-4">
+              <%= check_box_tag "q[room_type_eq_any][]", "Підселення" %> Підселення
+            </div>
+            <div class="col-md-4">
+              <%= check_box_tag "q[room_type_eq_any][]", "Приватне" %> Приватне
+            </div>
+          </div>
+
+          <hr/>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group select">
+                <label>Кількість кімнат</label>
+                <%= f.select :accommodate_gteq, [["1", 1], ["2", 2], ["3", 3], ["4+", 4]], id: "accommodate", prompt: "Вибір...", class: "form-control" %>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group select">
+                <label>Спальних місць</label>
+                <%= f.select :bed_room_gteq, [["1", 1], ["2", 2], ["3", 3], ["4+", 4]], id: "bed_room", prompt: "Вибір...", class: "form-control" %>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group select">
+                <label>Ванних кімнат</label>
+                <%= f.select :bath_room_gteq, [["1", 1], ["2", 2], ["3", 3], ["4+", 4]], id: "bath_room", prompt: "Вибір...", class: "form-control" %>
+              </div>
+            </div>
+          </div>
+
+          <hr/>
+
+          <div class="row">
+            <div class="col-md-4">
+              <%= check_box_tag "q[is_tv_eq]", true %> ТБ
+            </div>
+            <div class="col-md-4">
+              <%= check_box_tag "q[is_kitchen_eq]", true %> Кухня
+            </div>
+            <div class="col-md-4">
+              <%= check_box_tag "q[is_internet_eq]", true %> Інтернет
+            </div>
+            <div class="col-md-4">
+              <%= check_box_tag "q[is_heating_eq]", true %> Пральна машина
+            </div>
+            <div class="col-md-4">
+              <%= check_box_tag "q[is_air_eq]", true %> Кондиціонер
+            </div>
+          </div>
+
+          <hr/>
+
+
+
+        <% end %>
+      </div>
+
+      <div class="row" id="home_room_listing">
+        <%= render partial: "rooms/rooms_list", locals: {rooms: @arrRooms} %>
+      </div>
 </div>
+<script>
+  var open = true;
+
+  $('#filter').click(function(){
+    if (open) {
+      $('#filter').html("Згорнути <i class='fa fa-chevron-up'></i>")
+    } else {
+      $('#filter').html("Більше фільтрів <i class='fa fa-chevron-down'></i>")
+    }
+    open = !open;
+  });
+</script>
+
+<script>
+  $(function () {
+    $("#q_price_gteq").val('100');
+    $("#q_price_lteq").val('500');
+    $("#slider-range").slider({
+      range: true,
+      min: 0,
+      max: 1000,
+      values: [100, 500],
+      slide: function(event, ui) {
+        $("#q_price_gteq").val(ui.values[0]);
+        $("#q_price_lteq").val(ui.values[1]);
+      }
+    });
+    $(".ui-widget-header").css('background', '#00A699');
+    $(".ui-state-default, .ui-widget-content").css('background', 'white');
+    $(".ui-state-default, .ui-widget-content").css('border-color', '#00A699');
+  });
+</script>

@@ -5,14 +5,14 @@
     <div class="row">
       <div class="col-md-offset-4 col-md-4">
         <button id="filter" class="btn btn-default" data-toggle="collapse" data-target="#collapsePanel">
-          Фільтр <i class="fa fa-chevron-down"></i>
+          Більше фільтрів <i class="fa fa-chevron-down"></i>
         </button>
       </div>
     </div>
 
     <div class="row">
       <br/>
-      <div class="collapse" id="collapsePanel">
+      
 
         <%= search_form_for @search, url: search_path, remote: true do |f| %>
 
@@ -31,8 +31,14 @@
             </div>
           </div>
 
+          <div class="row text-center">
+            <%= f.submit "Пошук", class: "btn btn-form" %>
+            <%= link_to 'Забрати карту', home_path, class: 'remove-map pull-right' %>
+          </div>
+
           <hr/>
 
+        <div class="collapse" id="collapsePanel">
           <div class="row">
             <div class="col-md-4">
               <%= check_box_tag "q[room_type_eq_any][]", "Підселення" %> Підселення
@@ -87,9 +93,7 @@
 
           <hr/>
 
-          <div class="row text-center">
-            <%= f.submit "Пошук", class: "btn btn-form" %>
-          </div>
+
 
         <% end %>
       </div>
@@ -117,27 +121,22 @@
           zoom: 12
         });
 
+        var icon = {
+            url: "http://images.clipartpanda.com/circle-clip-art-22241-red-circle-design.png", // url
+            scaledSize: new google.maps.Size(10, 10), // scaled size
+            origin: new google.maps.Point(0,0), // origin
+            anchor: new google.maps.Point(0, 0) // anchor
+        };
+
         rooms.forEach(function(room){
           var marker = new google.maps.Marker({
             position: {lat: room.latitude, lng: room.longitude},
             map: map,
-            url: "/rooms/" + room.id
-          });
-
-          var infowindow = new google.maps.InfoWindow({
-            content: "<div class='map_price'>" + room.price + " грн" + "</div>"
-          });
-
-          marker.addListener('mouseover', function() {
-            infowindow.open(map, marker);
-          });
-
-          marker.addListener('mouseout', function() {
-            infowindow.close();
-          });          
+            icon: icon
+          }); 
 
           google.maps.event.addListener(marker, 'click', function() {
-            window.location.href = this.url;
+            $('#myModal').modal('show');
           });
         });
       }
@@ -146,6 +145,16 @@
         initialize(<%= raw @arrRooms.to_json %>)
       });
     </script>
+  </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+
+      </div>
+    </div>
   </div>
 </div>
 
@@ -175,7 +184,7 @@
     if (open) {
       $('#filter').html("Згорнути <i class='fa fa-chevron-up'></i>")
     } else {
-      $('#filter').html("Фільтр <i class='fa fa-chevron-down'></i>")
+      $('#filter').html("Більше фільтрів <i class='fa fa-chevron-down'></i>")
     }
     open = !open;
   });

@@ -353,7 +353,7 @@ a {
 }
 
 #rooms_ul {
-  columns: 200px 3;
+  columns: 300px 2;
   margin: 0;
   padding: 0;
 }
@@ -368,4 +368,19 @@ a {
 #room_link:hover {
   text-decoration: none;
   color: white;
+}
+
+#root-btn {
+  margin-top: 4%;
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+  font-weight: 700;
+}
+
+.remove-map {
+  margin-top: 3%;
 }
