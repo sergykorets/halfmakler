@@ -106,8 +106,8 @@
 
     <!-- NEAR BY ROOMS -->
     <div class="row">
-      <h3>Near by</h3>
-      <% for room in @room.nearbys(10).max(6).shuffle %>
+      <h3>Квартири поблизу</h3>
+      <% for room in @room.nearbys(1).max(6).shuffle %>
         <div class="col-md-4">
           <div class="panel panel-default">
             <div class="panel-heading preview">

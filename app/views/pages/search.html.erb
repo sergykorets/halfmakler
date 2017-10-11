@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-md-offset-4 col-md-4">
         <button id="filter" class="btn btn-default" data-toggle="collapse" data-target="#collapsePanel">
-          More filters <i class="fa fa-chevron-down"></i>
+          Фільтр <i class="fa fa-chevron-down"></i>
         </button>
       </div>
     </div>
@@ -18,86 +18,77 @@
 
           <div class="row">
             <div class="col-md-8">
-              <label>Price Range:</label>
+              <label>Діапазон ціни:</label>
               <div id="slider-range"></div>
             </div>
             <div class="col-md-2">
-              <label>Min Price:</label>
+              <label>Мінімальна:</label>
               <%= f.text_field :price_gteq, class: "form-control" %>
             </div>
             <div class="col-md-2">
-              <label>Max Price:</label>
+              <label>Максимальна:</label>
               <%= f.text_field :price_lteq, class: "form-control" %>
             </div>
           </div>
-          <hr/>
 
-          <div class="row">
-            <div class="col-md-6">
-              <%= text_field_tag :start_date, params[:start_date], readonly:true, placeholder: "Start Date", class: "form-control datepicker" %>
-            </div>
-            <div class="col-md-6">
-              <%= text_field_tag :end_date, params[:end_date], readonly:true, placeholder: "End Date", class: "form-control datepicker" %>
-            </div>
-          </div>
           <hr/>
 
           <div class="row">
             <div class="col-md-4">
-              <%= check_box_tag "q[room_type_eq_any][]", "Entire" %> Entire Room
+              <%= check_box_tag "q[room_type_eq_any][]", "Підселення" %> Підселення
             </div>
             <div class="col-md-4">
-              <%= check_box_tag "q[room_type_eq_any][]", "Private" %> Private
-            </div>
-            <div class="col-md-4">
-              <%= check_box_tag "q[room_type_eq_any][]", "Shared" %> Shared
+              <%= check_box_tag "q[room_type_eq_any][]", "Приватне" %> Приватне
             </div>
           </div>
+
           <hr/>
 
           <div class="row">
             <div class="col-md-4">
               <div class="form-group select">
-                <label>Accommodate</label>
-                <%= f.select :accommodate_gteq, [["1", 1], ["2", 2], ["3", 3], ["4+", 4]], id: "accommodate", prompt: "Select...", class: "form-control" %>
+                <label>Кількість кімнат</label>
+                <%= f.select :accommodate_gteq, [["1", 1], ["2", 2], ["3", 3], ["4+", 4]], id: "accommodate", prompt: "Вибір...", class: "form-control" %>
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group select">
-                <label>Bedroom</label>
-                <%= f.select :bed_room_gteq, [["1", 1], ["2", 2], ["3", 3], ["4+", 4]], id: "bed_room", prompt: "Select...", class: "form-control" %>
+                <label>Спальних місць</label>
+                <%= f.select :bed_room_gteq, [["1", 1], ["2", 2], ["3", 3], ["4+", 4]], id: "bed_room", prompt: "Вибір...", class: "form-control" %>
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group select">
-                <label>Bathroom</label>
-                <%= f.select :bath_room_gteq, [["1", 1], ["2", 2], ["3", 3], ["4+", 4]], id: "bath_room", prompt: "Select...", class: "form-control" %>
+                <label>Ванних кімнат</label>
+                <%= f.select :bath_room_gteq, [["1", 1], ["2", 2], ["3", 3], ["4+", 4]], id: "bath_room", prompt: "Вибір...", class: "form-control" %>
               </div>
             </div>
           </div>
+
           <hr/>
 
           <div class="row">
             <div class="col-md-4">
-              <%= check_box_tag "q[is_tv_eq]", true %> TV
+              <%= check_box_tag "q[is_tv_eq]", true %> ТБ
             </div>
             <div class="col-md-4">
-              <%= check_box_tag "q[is_kitchen_eq]", true %> Kitchen
+              <%= check_box_tag "q[is_kitchen_eq]", true %> Кухня
             </div>
             <div class="col-md-4">
-              <%= check_box_tag "q[is_internet_eq]", true %> Internet
+              <%= check_box_tag "q[is_internet_eq]", true %> Інтернет
             </div>
             <div class="col-md-4">
-              <%= check_box_tag "q[is_heating_eq]", true %> Heating
+              <%= check_box_tag "q[is_heating_eq]", true %> Пральна машина
             </div>
             <div class="col-md-4">
-              <%= check_box_tag "q[is_air_eq]", true %> Air Conditioning
+              <%= check_box_tag "q[is_air_eq]", true %> Кондиціонер
             </div>
           </div>
+
           <hr/>
 
           <div class="row text-center">
-            <%= f.submit "Search", class: "btn btn-form" %>
+            <%= f.submit "Пошук", class: "btn btn-form" %>
           </div>
 
         <% end %>
@@ -115,36 +106,40 @@
 
     <div id="map" style="width: 100%; height: 100%;"></div>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbdhrGL62_fFR-hckf74ihwPLkmrZLLSQ"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWHm5vuzmtyOaFYWqHk5P9QLw-s3l848E"></script>
     <script>
 
       function initialize(rooms) {
-        var location = {lat: 44.5403, lng: -78.5463}
-
-        if (rooms.length > 0) {
-          location = {lat: rooms[0].latitude, lng: rooms[0].longitude}
-        }
+        var location = {lat: 49.839553, lng: 24.033520}
 
         var map = new google.maps.Map(document.getElementById('map'), {
           center: location,
           zoom: 12
         });
 
-        var marker, infowindow;
-
         rooms.forEach(function(room){
-          marker = new google.maps.Marker({
+          var marker = new google.maps.Marker({
             position: {lat: room.latitude, lng: room.longitude},
-            map: map
+            map: map,
+            url: "/rooms/" + room.id
           });
 
-          infowindow = new google.maps.InfoWindow({
-            content: "<div class='map_price'>$" + room.price + "</div>"
+          var infowindow = new google.maps.InfoWindow({
+            content: "<div class='map_price'>" + room.price + " грн" + "</div>"
           });
 
-          infowindow.open(map, marker);
+          marker.addListener('mouseover', function() {
+            infowindow.open(map, marker);
+          });
+
+          marker.addListener('mouseout', function() {
+            infowindow.close();
+          });          
+
+          google.maps.event.addListener(marker, 'click', function() {
+            window.location.href = this.url;
+          });
         });
-
       }
 
       google.maps.event.addDomListener(window, 'load', function () {
@@ -178,9 +173,9 @@
 
   $('#filter').click(function(){
     if (open) {
-      $('#filter').html("More filters <i class='fa fa-chevron-up'></i>")
+      $('#filter').html("Згорнути <i class='fa fa-chevron-up'></i>")
     } else {
-      $('#filter').html("More filters <i class='fa fa-chevron-down'></i>")
+      $('#filter').html("Фільтр <i class='fa fa-chevron-down'></i>")
     }
     open = !open;
   });

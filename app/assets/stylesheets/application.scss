@@ -8,6 +8,10 @@ body {
   font-family: "Varela Round", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 
+.site-body {
+  margin-top: 9%;
+}
+
 a {
   color: #00A699;
 }
@@ -311,12 +315,14 @@ a {
 #main {
   height: 100%;
   overflow: hidden;
+  margin-top: 0;
 }
 
 #left {
-  padding: 10px 400px 10px 20px;
+  padding: 0 400px 10px 20px;
   overflow: scroll;
   height: 100%;
+  margin-top: 0;
 }
 
 #right {
@@ -324,7 +330,7 @@ a {
   top: 9%;
   right: 0;
   width: 500px;
-  height: 100%;
+  height: 600px;
 }
 
 .map_price {
@@ -344,4 +350,22 @@ a {
 .banner {
   margin-top: 50px;
   margin-bottom: 50px;
+}
+
+#rooms_ul {
+  columns: 200px 3;
+  margin: 0;
+  padding: 0;
+}
+
+#room {
+  list-style: none;
+  break-inside: avoid;
+  margin: 0;
+  padding: 0;
+}
+
+#room_link:hover {
+  text-decoration: none;
+  color: white;
 }

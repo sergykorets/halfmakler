@@ -80,6 +80,11 @@ class RoomsController < ApplicationController
     render json: output
   end
 
+  def destroy
+    @room.destroy
+    redirect_to rooms_path
+  end
+
   private
 
   def is_conflict(start_date, end_date, room)
