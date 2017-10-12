@@ -5,7 +5,7 @@ class Room < ApplicationRecord
   has_many :guest_reviews
 
   geocoded_by :address
-  after_validation :geocode
+  after_validation :geocode, if: :address_changed?
 
   validates :home_type, presence: true
   validates :room_type, presence: true
@@ -19,6 +19,13 @@ class Room < ApplicationRecord
     else
       "blank.jpg"
     end
+  end
+
+  def add_coordinates
+    puts geocode.inspect
+    coodinates = geocode
+    puts geocode.inspect
+    update(latitude: coodinates[0], longitude: coodinates[1]) unless self.new_record?
   end
 
   def average_rating

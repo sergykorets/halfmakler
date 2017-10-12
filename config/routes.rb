@@ -21,8 +21,10 @@ Rails.application.routes.draw do
       get 'preload'
       get 'preview'
     end
+    get 'get_address_rooms', on: :collection
+    get 'address_rooms', on: :collection
     resources :photos, only: [:create, :destroy]
-    resources :reservations, only: [:create]
+    resources :reservations, only: [:create, :destroy]
   end
 
   resources :guest_reviews, only: [:create, :destroy]
@@ -32,4 +34,4 @@ Rails.application.routes.draw do
   get '/your_reservations' => 'reservations#your_reservations'
 
   get 'search' => 'pages#search'
-  end
+end

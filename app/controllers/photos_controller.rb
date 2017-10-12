@@ -9,7 +9,7 @@ class PhotosController < ApplicationController
       end
 
       @photos = @room.photos
-      redirect_back(fallback_location: request.referer, notice: "Saved...")
+      redirect_back(fallback_location: request.referer, notice: "Фотографії збережені")
     end
   end
 

@@ -1,6 +1,6 @@
 class RoomsController < ApplicationController
 
-  before_action :set_room, except: [:index, :new, :create]
+  before_action :set_room, except: [:index, :new, :create, :address_rooms, :get_address_rooms]
   before_action :authenticate_user!, except: [:show]
   before_action :is_authorised, only: [:listing, :pricing, :description, :photo_upload, :amenities, :location, :update]
 
@@ -15,9 +15,9 @@ class RoomsController < ApplicationController
   def create
     @room = current_user.rooms.build(room_params)
     if @room.save
-      redirect_to listing_room_path(@room), notice: "Saved..."
+      redirect_to listing_room_path(@room), notice: "Нове житло створено, додайте деталі Вашої квартири, щоб мати можливість її опублікувати"
     else
-      flash[:alert] = "Something went wrong..."
+      flash[:alert] = "Щось пішло не так. Перезапустіть сторінку"
       render :new
     end
   end
@@ -54,9 +54,9 @@ class RoomsController < ApplicationController
     new_params = room_params.merge(active: true) if is_ready_room
 
     if @room.update(new_params)
-      flash[:notice] = "Saved..."
+      flash[:notice] = "Зміни збережено"
     else
-      flash[:alert] = "Something went wrong..."
+      flash[:alert] = "Щось пішло не так. Перезапустіть сторінку"
     end
     redirect_back(fallback_location: request.referer)
   end
@@ -85,19 +85,26 @@ class RoomsController < ApplicationController
     redirect_to rooms_path
   end
 
-  private
-
-  def is_conflict(start_date, end_date, room)
-    check = room.reservations.where("? < start_date AND end_date < ?", start_date, end_date)
-    check.size >0? true : false
+  def get_address_rooms
+    marker = params[:marker]
+    @address_rooms = Room.where(latitude: marker[:lat].to_d.round(7), longitude: marker[:lng].to_d.round(7)).to_a
+    puts @address_rooms.inspect
+    render json: @address_rooms
   end
+
+  def address_rooms
+    @rooms = params[:marker]
+    respond_to :html, address_rooms_rooms_path
+  end
+
+  private
 
   def set_room
     @room = Room.find(params[:id])
   end
 
   def is_authorised
-    redirect_to root_path, alert: "You don't have permission" unless current_user.id == @room.user_id
+    redirect_to root_path, alert: "Ви не маєте права на цю дію" unless current_user.id == @room.user_id
   end
 
   def is_ready_room

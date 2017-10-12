@@ -29,10 +29,7 @@ ActiveRecord::Schema.define(version: 20170830145531) do
   create_table "reservations", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "room_id"
-    t.datetime "start_date"
-    t.datetime "end_date"
-    t.integer "price"
-    t.integer "total"
+    t.boolean "premium", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["room_id"], name: "index_reservations_on_room_id"
