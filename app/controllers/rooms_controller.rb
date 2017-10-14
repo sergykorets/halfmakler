@@ -1,7 +1,7 @@
 class RoomsController < ApplicationController
 
   before_action :set_room, except: [:index, :new, :create, :address_rooms, :get_address_rooms]
-  before_action :authenticate_user!, except: [:show]
+  before_action :authenticate_user!, except: [:show, :get_address_rooms, :address_rooms]
   before_action :is_authorised, only: [:listing, :pricing, :description, :photo_upload, :amenities, :location, :update]
 
   def index
@@ -85,16 +85,13 @@ class RoomsController < ApplicationController
     redirect_to rooms_path
   end
 
-  def get_address_rooms
-    marker = params[:marker]
-    @address_rooms = Room.where(latitude: marker[:lat].to_d.round(7), longitude: marker[:lng].to_d.round(7)).to_a
-    puts @address_rooms.inspect
-    render json: @address_rooms
-  end
-
   def address_rooms
-    @rooms = params[:marker]
-    respond_to :html, address_rooms_rooms_path
+    marker = params[:marker]
+    @rooms = Room.where(longitude: marker[:lng].to_d.round(7)).to_a
+    respond_to do |format|
+      format.json { render json: @rooms }
+      format.js
+    end
   end
 
   private
