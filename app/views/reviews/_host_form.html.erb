@@ -9,7 +9,7 @@
         <h3 class="modal-title text-center">Оцінити житло</h3>
       </div>
       <div class="modal-body">
-        <%= form_for current_user.host_reviews.new do |f| %>
+        <%= form_for [@room, Review.new] do |f| %>
           
           <div class="form-group">
             <%= f.text_area :comment, row: 3, class: "form-control" %>
@@ -17,10 +17,6 @@
           <div class="form-group text-center">
             <div id="stars_<%= @room.id %>"></div>
           </div>
-
-          <%= f.hidden_field :room_id, value: @room.id %>
-          <%#= f.hidden_field :reservation_id, value: reservation.id %>
-          <%#= f.hidden_field :guest_id, value: current_user.id %>
 
           <div class="text-center">
             <%= f.submit "Залишити відгук", class: "btn btn-normal" %>
@@ -33,7 +29,7 @@
 <script>
   $('#stars_<%= @room.id %>').raty({
     path: '/assets',
-    scoreName: 'host_review[star]',
+    scoreName: 'review[star]',
     score: 1
   });
 </script>

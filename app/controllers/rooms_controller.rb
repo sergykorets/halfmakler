@@ -15,7 +15,7 @@ class RoomsController < ApplicationController
   def create
     @room = current_user.rooms.build(room_params)
     if @room.save
-      redirect_to listing_room_path(@room), notice: "Нове житло створено, додайте деталі Вашої квартири, щоб мати можливість її опублікувати"
+      redirect_to pricing_room_path(@room), notice: "Нове житло створено, додайте деталі Вашої квартири, щоб мати можливість її опублікувати"
     else
       flash[:alert] = "Щось пішло не так. Перезапустіть сторінку"
       render :new
@@ -24,9 +24,8 @@ class RoomsController < ApplicationController
 
   def show
     @photos = @room.photos
-    @guest_reviews = @room.guest_reviews
+    @reviews = @room.reviews
     @booked = Reservation.where("room_id = ? AND user_id = ?", @room.id, current_user.id).present? if current_user
-    @hasReview = @guest_reviews.find_by(guest_id: current_user.id) if current_user
   end
 
   def listing
