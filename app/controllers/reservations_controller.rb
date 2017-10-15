@@ -19,6 +19,10 @@ class ReservationsController < ApplicationController
     redirect_to room
   end
 
+  def your_reservations
+    @reservations = Reservation.where(user_id: current_user.id)
+  end
+
   def destroy
     reservation = Reservation.find(params[:id])
     reservation.destroy

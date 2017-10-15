@@ -26,6 +26,11 @@ class RoomsController < ApplicationController
     @photos = @room.photos
     @reviews = @room.reviews
     @booked = Reservation.where("room_id = ? AND user_id = ?", @room.id, current_user.id).present? if current_user
+    @queue = @room.reservations.compact
+    @queue.each do |reservation|
+      @premium_queue = reservation if reservation.premium
+    end
+    puts @premium_queue
   end
 
   def listing

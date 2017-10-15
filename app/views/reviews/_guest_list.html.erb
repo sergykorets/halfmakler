@@ -7,16 +7,16 @@
         <strond><%= r.user.fullname %></strond>
       </div>
       <div class="col-md-9">
-        <div id="star_<%= r.id %>"></div>
         <% if current_user && current_user == r.user %>
-          <span class="pull-right">
+          <span style="margin-right: 10%;" class="pull-right">
             <%= link_to room_review_path(@room, r), method: :delete, data: {confirm: "Are you sure?"} do %>
               <i class="fa fa-trash-o fa-lg"></i>
             <% end %>
           </span>
         <% end %>
-        <div><%= r.created_at.strftime("%v") %></div>
-        <div><%= r.comment %></div>
+        <div id="star_<%= r.id %>"></div>
+        <div><%= r.created_at.strftime("%d/%m/%Y") %></div>
+        <div style="padding-right: 5%;"><%= r.comment %></div>
       </div>
     </div>
 

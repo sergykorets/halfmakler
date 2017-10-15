@@ -81,27 +81,30 @@
     </div>
     <hr/>
 
-    <!-- NEAR BY ROOMS -->
-    <div class="row">
-      <h3>Квартири поблизу</h3>
-      <% for room in @room.nearbys(1).max(6).shuffle %>
-        <%= link_to room_path(room) do %>
-          <div class="col-md-4">
-            <div class="panel panel-default">
-              <div class="panel-heading preview">
-                <%= image_tag room.cover_photo(:medium) %>
-              </div>
-              <div class="panel-body">
-                <%= link_to room.listing_name, room %><br/>
-                (<%= room.distance.round(2) %> км)
+    <% if @room.nearbys.to_a.count > 1 %>
+    <% puts @room.nearbys.inspect %>
+      <!-- NEAR BY ROOMS -->
+      <div class="row">
+        <h3>Квартири поблизу</h3>
+        <% for room in @room.nearbys(1).max(6).shuffle %>
+          <%= link_to room_path(room) do %>
+            <div class="col-md-4">
+              <div class="panel panel-default">
+                <div class="panel-heading preview">
+                  <%= image_tag room.cover_photo(:medium) %>
+                </div>
+                <div class="panel-body">
+                  <%= link_to room.listing_name, room %><br/>
+                  (<%= room.distance.round(2) %> км)
+                </div>
               </div>
             </div>
-          </div>
+          <% end %>
         <% end %>
-      <% end %>
-    </div>
-    <br/>
-    <hr/>
+      </div>
+      <br/>
+      <hr/>
+    <% end %>
 
     <div class="row">
       <div class="col-md-12">
@@ -122,13 +125,6 @@
   <div class="col-md-4">
     <!-- RESERVATION FORM -->
     <%= render 'reservations/form' %>
-    <div class="text-center">
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Фотографії</button>
-      <!-- Trigger the modal with a button -->
-      <button type="button" class="btn btn-normal" data-toggle="modal" data-target="#myModal_<%= @room.id %>">
-        Залишити відгук
-      </button>
-    </div>
     <hr>
     <div class="row">
       <div class="col-md-9">
@@ -187,6 +183,34 @@
             </a>
           </div>
         <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="queueModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <% if @queue.any? %>
+          <% if @premium_queue %>
+            <div class="panel panel-default">
+              <div class="panel-body" style="background: #00ab98;">
+                <b class="pull-right">Преміум черга</b>
+                <%= @premium_queue.user.email %>
+              </div>
+            </div>
+          <% end %>
+          <% @queue.each do |reservation| %>
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <%= reservation.user.email %>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <h3 class="text-center">На показ ще ніхто не записався</h3>  
+        <% end %>  
       </div>
     </div>
   </div>

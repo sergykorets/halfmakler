@@ -6,7 +6,11 @@
   <div class="panel-body">
     <%- if current_user %>
       <%- if @booked %>
-        <%= link_to 'Видалитися з черги', room_reservation_path(@room, @room.reservations.where(room_id: @room.id).first), method: :delete, class: "btn btn-danger btn-block"  %>
+        <div class="row">
+          <div class="col-md-12 reservation-btn">
+            <%= link_to 'Видалитися з черги', room_reservation_path(@room, @room.reservations.where(room_id: @room.id).first), method: :delete, class: "btn btn-danger btn-block"  %>
+          </div>
+        </div>
       <% else %>
         <%= form_for([@room, @room.reservations.new]) do |f| %>
           <div class="row">
@@ -25,5 +29,14 @@
         </div>
       <% end %>
     <% end %>
+    <div class="row">
+      <div class="col-md-12 reservation-btn">
+        <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#queueModal">Список черги</button>
+        <!-- Trigger the modal with a button -->
+        <button type="button" class="btn btn-normal btn-block" data-toggle="modal" data-target="#myModal_<%= @room.id %>">
+          Залишити відгук
+        </button>
+      </div>
+    </div>
   </div>
 </div>
