@@ -7,5 +7,5 @@ default: &default
 development:
   <<: *default
   database: airpikachu_development
-  username: serhii
+  username: user
   password: 3441
