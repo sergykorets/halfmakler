@@ -33,18 +33,10 @@
         <div class="col-md-3">
           <i class="fa fa-user-circle-o fa-2x"></i>
         </div>
-        <div class="col-md-3">
-          <i class="fa fa-bed fa-2x"></i>
-        </div>
-        <div class="col-md-3">
-          <i class="fa fa-bath fa-2x"></i>
-        </div>
       </div>
       <div class="row text-center">
         <div class="col-md-3"><%= @room.home_type %></div>
-        <div class="col-md-3"><%= pluralize(@room.accommodate, "Кількість кімнат") %></div>
-        <div class="col-md-3"><%= pluralize(@room.bed_room, "Спальні місця") %></div>
-        <div class="col-md-3"><%= pluralize(@room.bath_room, "Ванні") %></div>
+        <div class="col-md-3"><%= "Кількість кімнат - #{@room.accommodate}" %></div>
       </div>
     </div>
     <hr/>
@@ -82,8 +74,6 @@
     <hr/>
 
     <% if @room.nearbys.to_a.count > 1 %>
-    <% puts @room.nearbys.inspect %>
-      <!-- NEAR BY ROOMS -->
       <div class="row">
         <h3>Квартири поблизу</h3>
         <% for room in @room.nearbys(1).max(6).shuffle %>
@@ -106,19 +96,19 @@
       <hr/>
     <% end %>
 
-    <div class="row">
+<!--     <div class="row">
       <div class="col-md-12">
-        <div class="pull-right"><%= render 'reviews/host_form' %></div>
+        <div class="pull-right"><%#= render 'reviews/host_form' %></div>
         <h3>
-          <%= "Відгуки: #{@reviews.count}" %>
+          <%#= "Відгуки: #{@reviews.count}" %>
           <span id="average_rating"></span>
         </h3>
         <br/>
         <div class="container">
-          <div style="background: white;"><%= render "reviews/guest_list" %></div>
+          <div style="background: white;"><%#= render "reviews/guest_list" %></div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 
   <!-- RIGHT PANEL -->
@@ -132,7 +122,6 @@
           <div class="col-md-6">
             <ul class="amenities">
               <li class="<%= 'text-line-through' if !@room.is_tv %>">ТБ</li>
-              <li class="<%= 'text-line-through' if !@room.is_kitchen %>">Кухня</li>
               <li class="<%= 'text-line-through' if !@room.is_internet %>">Інтернет</li>
             </ul>
           </div>
@@ -188,38 +177,38 @@
   </div>
 </div>
 
-<div class="modal fade" id="queueModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="queueModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-body">
-        <% if @queue.any? %>
-          <% if @premium_queue %>
+        <%# if @queue.any? %>
+          <%# if @premium_queue %>
             <div class="panel panel-default">
               <div class="panel-body" style="background: #00ab98;">
                 <b class="pull-right">Преміум черга</b>
-                <%= @premium_queue.user.email %>
+                <%#= @premium_queue.user.email %>
               </div>
             </div>
-          <% end %>
-          <% @queue.each do |reservation| %>
+          <%# end %>
+          <%# @queue.each do |reservation| %>
             <div class="panel panel-default">
               <div class="panel-body">
-                <%= reservation.user.email %>
+                <%#= reservation.user.email %>
               </div>
             </div>
-          <% end %>
-        <% else %>
+          <%# end %>
+        <%# else %>
           <h3 class="text-center">На показ ще ніхто не записався</h3>  
-        <% end %>  
+        <%# end %>  
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
-<script>
+<!-- <script>
   $('#average_rating').raty({
     path: '/assets',
     readOnly: true,
     score: <%= @room.average_rating %>
   });
-</script>
+</script> -->

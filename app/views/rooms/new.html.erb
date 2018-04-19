@@ -12,15 +12,15 @@
             <div class="form-group">
               <label>Тип житла</label>
               <%= f.select :home_type, [["Квартира", "Квартира"], ["Будинок", "Будинок"], ["Приміщення", "Приміщення"]],
-                            id: "home_type", prompt: "Вибір...", class: "form-control" %>
+                            id: "home_type", class: "form-control" %>
             </div>
           </div>
 
           <div class="col-md-4 select">
             <div class="form-group">
               <label>Тип поселення</label>
-              <%= f.select :room_type, [["Підселення", "Підселення"], ["Приватне", "Приватне"]],
-                            id: "room_type", prompt: "Вибір...", class: "form-control" %>
+              <%= f.select :room_type, [["Оренда", "Оренда"],["Підселення", "Підселення"]],
+                            id: "room_type", class: "form-control" %>
             </div>
           </div>
 
@@ -28,23 +28,7 @@
             <div class="form-group">
               <label>Кількість кімнат</label>
               <%= f.select :accommodate, [["1", 1], ["2", 2], ["3", 3], ["4+", 4]],
-                            id: "accommodate", prompt: "Вибір...", class: "form-control" %>
-            </div>
-          </div>
-
-          <div class="col-md-4 select">
-            <div class="form-group">
-              <label>Спальні місця</label>
-              <%= f.select :bed_room, [["1", 1], ["2", 2], ["3", 3], ["4+", 4]],
-                            id: "bed_room", prompt: "Вибір...", class: "form-control" %>
-            </div>
-          </div>
-
-          <div class="col-md-4 select">
-            <div class="form-group">
-              <label>Ванні кімнати</label>
-              <%= f.select :bath_room, [["1", 1], ["2", 2], ["3", 3], ["4+", 4]],
-                            id: "bath_room", prompt: "Вибір...", class: "form-control" %>
+                            id: "accommodate", class: "form-control" %>
             </div>
           </div>
         </div>

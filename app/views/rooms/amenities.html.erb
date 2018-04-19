@@ -13,22 +13,19 @@
         <div class="container">
           <%= form_for @room do |f| %>
             <div class="row form-group">
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <%= f.check_box :is_tv %> ТБ
               </div>
-              <div class="col-md-4">
-                <%= f.check_box :is_kitchen %> Кухня
-              </div>
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <%= f.check_box :is_internet %> Інтернет
               </div>
             </div>
 
             <div class="row form-group">
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <%= f.check_box :is_heating %> Пральна машина
               </div>
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <%= f.check_box :is_air %> Кондиціонер
               </div>
             </div>
