@@ -64,3 +64,7 @@ gem 'aws-sdk', '~> 2.8'
 gem 'geocoder', '~> 1.4'
 gem 'jquery-ui-rails', '~> 5.0'
 gem 'ransack', '~> 1.8'
+gem 'aws-sdk', '~> 2.8'
+gem 'rack-cors'
+gem 'active_model_serializers', require: true
+gem 'koala'

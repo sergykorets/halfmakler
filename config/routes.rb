@@ -1,6 +1,15 @@
 Rails.application.routes.draw do
   root 'pages#search'
 
+  namespace :api, defaults: {format: :json} do
+    namespace :v1 do
+      get '/logout' => 'users#logout'
+      post '/facebook' => 'users#facebook'
+
+      resources :rooms
+    end
+  end
+
   get 'home' => 'pages#home'
 
   devise_for :users,

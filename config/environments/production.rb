@@ -99,6 +99,18 @@ Rails.application.configure do
     enable_starttls_auto: true,
     authentication: 'plain',
     user_name: 'sergykoretsfsp@gmail.com',
-    password: '3441_Edinorog'
+    password: Rails.application.secrets.gmail_password
+  }
+
+  config.paperclip_defaults = {
+    storage: :s3,
+    path: ':class/:attachment/:id/:style/:filename',
+    s3_host_name: 's3-eu-central-1.amazonaws.com',
+    s3_credentials: {
+      bucket: Rails.application.secrets.bucket,
+      access_key_id: Rails.application.secrets.access_key_id,
+      secret_access_key: Rails.application.secrets.secret_access_key,
+      s3_region: 'eu-central-1'
+    }
   }
 end
